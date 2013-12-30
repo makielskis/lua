@@ -51,7 +51,6 @@ if (NOT MINGW)
   set_target_properties(luac PROPERTIES LINK_FLAGS "-m32")
   get_property(luac_location TARGET luac PROPERTY LOCATION)
 else()
-  message("${CMAKE_BINARY_DIR}/luac")
   set(luac_location ${CMAKE_BINARY_DIR}/luac/luac PARENT_SCOPE)
   add_custom_target(luac
     rm -rf ${CMAKE_BINARY_DIR}/luac &&
