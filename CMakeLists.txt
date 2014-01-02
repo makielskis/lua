@@ -47,16 +47,26 @@ add_library(lua STATIC ${SOURCES})
 if (NOT MINGW)
   set_source_files_properties(src/luac.c PROPERTIES LANGUAGE CXX)
   add_executable(luac EXCLUDE_FROM_ALL src/luac.c ${SOURCES})
-  set_target_properties(luac PROPERTIES COMPILE_FLAGS "-m32")
-  set_target_properties(luac PROPERTIES LINK_FLAGS "-m32")
+  if (ARCH32)
+    set_target_properties(luac PROPERTIES COMPILE_FLAGS "-m32")
+    set_target_properties(luac PROPERTIES LINK_FLAGS "-m32")
+    message("compiling with -m32")
+  else()
+    message("compiling host machine architecture (probably x86_64)")
+  endif()
   get_property(luac_location TARGET luac PROPERTY LOCATION)
+  set(luac_location ${luac_location} PARENT_SCOPE)
 else()
+  if (MINGW OR ANDROID)
+    set(ARCH "-DARCH_32")
+  endif()
+
   set(luac_location ${CMAKE_BINARY_DIR}/luac/luac PARENT_SCOPE)
   add_custom_target(luac
     rm -rf ${CMAKE_BINARY_DIR}/luac &&
     mkdir ${CMAKE_BINARY_DIR}/luac &&
     cd ${CMAKE_BINARY_DIR}/luac &&
-    cmake ${CMAKE_CURRENT_SOURCE_DIR} &&
+    cmake ${ARCH} ${CMAKE_CURRENT_SOURCE_DIR} &&
     make luac
   )
 endif()
