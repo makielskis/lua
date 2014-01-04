@@ -44,7 +44,7 @@ set(SOURCES
 set_source_files_properties(${SOURCES} PROPERTIES LANGUAGE CXX)
 add_library(lua STATIC ${SOURCES})
 
-if (NOT MINGW)
+if (NOT MINGW AND NOT ANDROID)
   set_source_files_properties(src/luac.c PROPERTIES LANGUAGE CXX)
   add_executable(luac EXCLUDE_FROM_ALL src/luac.c ${SOURCES})
   if (ARCH_32)
