@@ -44,7 +44,7 @@ set(SOURCES
 set_source_files_properties(${SOURCES} PROPERTIES LANGUAGE CXX)
 add_library(lua STATIC ${SOURCES})
 
-if (NOT MINGW AND NOT ANDROID)
+if (NOT MINGW AND NOT ANDROID AND NOT CROSS_ARM)
   set_source_files_properties(src/luac.c PROPERTIES LANGUAGE CXX)
   add_executable(luac EXCLUDE_FROM_ALL src/luac.c ${SOURCES})
   if (ARCH_32)
@@ -57,7 +57,7 @@ if (NOT MINGW AND NOT ANDROID)
   get_property(luac_location TARGET luac PROPERTY LOCATION)
   set(luac_location ${luac_location} PARENT_SCOPE)
 else()
-  if (MINGW OR ANDROID)
+  if (MINGW OR ANDROID OR CROSS_ARM)
     set(ARCH "-DARCH_32:boolean=true")
   endif()
 
