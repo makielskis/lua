@@ -43,6 +43,7 @@ set(SOURCES
 )
 set_source_files_properties(${SOURCES} PROPERTIES LANGUAGE CXX)
 add_library(lua STATIC ${SOURCES})
+target_include_directories(lua PUBLIC src)
 
 if (NOT MINGW AND NOT ANDROID AND NOT CROSS_ARM)
   set_source_files_properties(src/luac.c PROPERTIES LANGUAGE CXX)
