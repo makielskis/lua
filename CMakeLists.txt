@@ -8,46 +8,44 @@ endif()
 
 include_directories("src")
 set(SOURCES
-  src/lapi.c
-  src/lcode.c
-  src/lctype.c
-  src/ldebug.c
-  src/ldo.c
-  src/ldump.c
-  src/lfunc.c
-  src/lgc.c
-  src/llex.c
-  src/lmem.c
-  src/lobject.c
-  src/lopcodes.c
-  src/lparser.c
-  src/lstate.c
-  src/lstring.c
-  src/ltable.c
-  src/ltm.c
-  src/lundump.c
-  src/lvm.c
-  src/lzio.c
-  src/lauxlib.c
-  src/lbaselib.c
-  src/lbitlib.c
-  src/lcorolib.c
-  src/ldblib.c
-  src/liolib.c
-  src/lmathlib.c
-  src/loslib.c
-  src/lstrlib.c
-  src/ltablib.c
-  src/loadlib.c
-  src/linit.c
+  src/lapi.cc
+  src/lcode.cc
+  src/lctype.cc
+  src/ldebug.cc
+  src/ldo.cc
+  src/ldump.cc
+  src/lfunc.cc
+  src/lgc.cc
+  src/llex.cc
+  src/lmem.cc
+  src/lobject.cc
+  src/lopcodes.cc
+  src/lparser.cc
+  src/lstate.cc
+  src/lstring.cc
+  src/ltable.cc
+  src/ltm.cc
+  src/lundump.cc
+  src/lvm.cc
+  src/lzio.cc
+  src/lauxlib.cc
+  src/lbaselib.cc
+  src/lbitlib.cc
+  src/lcorolib.cc
+  src/ldblib.cc
+  src/liolib.cc
+  src/lmathlib.cc
+  src/loslib.cc
+  src/lstrlib.cc
+  src/ltablib.cc
+  src/loadlib.cc
+  src/linit.cc
 )
-set_source_files_properties(${SOURCES} PROPERTIES LANGUAGE CXX)
 add_library(lua STATIC ${SOURCES})
 target_include_directories(lua PUBLIC src)
 
 if (NOT MINGW AND NOT ANDROID AND NOT CROSS_ARM)
-  set_source_files_properties(src/luac.c PROPERTIES LANGUAGE CXX)
-  add_executable(luac EXCLUDE_FROM_ALL src/luac.c ${SOURCES})
+  add_executable(luac EXCLUDE_FROM_ALL src/luac.cc ${SOURCES})
   if (ARCH_32)
     set_target_properties(luac PROPERTIES COMPILE_FLAGS "-m32")
     set_target_properties(luac PROPERTIES LINK_FLAGS "-m32")
